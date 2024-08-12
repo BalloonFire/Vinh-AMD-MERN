@@ -1,2 +1,1 @@
-# ecommerce-mevn-microservices
-ecommerce-mevn-microservices
+:Vinh, Nhu, Huy: Fullstack MERN Ecommerce Application
