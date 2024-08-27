@@ -1,4 +1,3 @@
-// // For more information about this file see https://dove.feathersjs.com/guides/cli/service.schemas.html
 import { resolve } from '@feathersjs/schema'
 import { Type, getValidator, querySyntax } from '@feathersjs/typebox'
 import { ObjectIdSchema } from '@feathersjs/typebox'
@@ -9,13 +8,18 @@ import { dataValidator, queryValidator } from '../../validators.js'
 export const userSchema = Type.Object(
   {
     _id: ObjectIdSchema(),
+    name: Type.String(),
     email: Type.String(),
-    password: Type.Optional(Type.String())
+    password: Type.Optional(Type.String()),
+    wasteSortingScores: Type.Optional(Type.Number()) // Make wasteSortingScores optional
   },
   { $id: 'User', additionalProperties: false }
 )
 export const userValidator = getValidator(userSchema, dataValidator)
-export const userResolver = resolve({})
+export const userResolver = resolve({
+  // Set default value for wasteSortingScores if not provided
+  wasteSortingScores: async (value = 0) => value
+})
 
 export const userExternalResolver = resolve({
   // The password should never be visible externally
@@ -23,12 +27,13 @@ export const userExternalResolver = resolve({
 })
 
 // Schema for creating new entries
-export const userDataSchema = Type.Pick(userSchema, ['email', 'password'], {
+export const userDataSchema = Type.Pick(userSchema, ['email', 'name', 'password', 'wasteSortingScores'], {
   $id: 'UserData'
 })
 export const userDataValidator = getValidator(userDataSchema, dataValidator)
 export const userDataResolver = resolve({
-  password: passwordHash({ strategy: 'local' })
+  password: passwordHash({ strategy: 'local' }),
+  wasteSortingScores: async (value = 0) => value // Ensure default value when creating
 })
 
 // Schema for updating existing entries
@@ -37,11 +42,12 @@ export const userPatchSchema = Type.Partial(userSchema, {
 })
 export const userPatchValidator = getValidator(userPatchSchema, dataValidator)
 export const userPatchResolver = resolve({
-  password: passwordHash({ strategy: 'local' })
+  password: passwordHash({ strategy: 'local' }),
+  wasteSortingScores: async (value = 0) => value // Ensure default value when updating
 })
 
 // Schema for allowed query properties
-export const userQueryProperties = Type.Pick(userSchema, ['_id', 'email'])
+export const userQueryProperties = Type.Pick(userSchema, ['_id', 'name', 'email', 'wasteSortingScores'])
 export const userQuerySchema = Type.Intersect(
   [
     querySyntax(userQueryProperties),
