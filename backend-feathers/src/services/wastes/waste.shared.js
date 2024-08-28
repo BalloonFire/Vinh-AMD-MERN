@@ -1,4 +1,4 @@
-export const wastePath = 'waste'
+export const wastePath = 'waste-items'
 
 export const wasteMethods = ['find', 'get', 'create', 'patch', 'remove']
 

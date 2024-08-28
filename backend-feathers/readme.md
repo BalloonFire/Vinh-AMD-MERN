@@ -1,6 +1,6 @@
 # backend-feathers
 
-> AMD201 Waste Sorting
+> waste-sorting-api
 
 ## About
 
@@ -19,6 +19,10 @@ This project uses [Feathers](http://feathersjs.com). An open source framework fo
 3. Start your app
 
     ```
+<<<<<<< HEAD
+=======
+    npm run compile # Compile TypeScript source
+>>>>>>> 4bc7a103c95ec0021e7a08c3b575689a4e370237
     npm start
     ```
 
