@@ -31,12 +31,12 @@ export const challenge = (app) => {
   app.service(challengePath).hooks({
     around: {
       all: [schemaHooks.resolveExternal(challengeExternalResolver), schemaHooks.resolveResult(challengeResolver)],
-      find: [],
-      get: [],
-      create: [],
-      update: [],
-      patch: [],
-      remove: []
+      find: [authenticate('jwt')],
+      get: [authenticate('jwt')],
+      create: [authenticate('jwt')],
+      update: [authenticate('jwt')],
+      patch: [authenticate('jwt')],
+      remove: [authenticate('jwt')]
     },
     before: {
       all: [schemaHooks.validateQuery(challengeQueryValidator), schemaHooks.resolveQuery(challengeQueryResolver)],

@@ -27,7 +27,7 @@ export const waste = (app) => {
       all: [schemaHooks.resolveExternal(wasteExternalResolver), schemaHooks.resolveResult(wasteResolver)],
       find: [authenticate('jwt')],
       get: [authenticate('jwt')],
-      create: [],
+      create: [authenticate('jwt')],
       update: [authenticate('jwt')],
       patch: [authenticate('jwt')],
       remove: [authenticate('jwt')]
