@@ -24,6 +24,27 @@ export class ChallengeService extends MongoDBService {
     
     return data;
   }
+
+  // Override create method to invalidate cache
+  async create(data, params) {
+    const result = await super.create(data, params);
+    await redisClient.del('challengesCache');  // Invalidate cache
+    return result;
+  }
+
+  // Override patch method to invalidate cache
+  async patch(id, data, params) {
+    const result = await super.patch(id, data, params);
+    await redisClient.del('challengesCache');  // Invalidate cache
+    return result;
+  }
+
+  // Override remove method to invalidate cache
+  async remove(id, params) {
+    const result = await super.remove(id, params);
+    await redisClient.del('challengesCache');  // Invalidate cache
+    return result;
+  }
 }
 
 // Options for the service
