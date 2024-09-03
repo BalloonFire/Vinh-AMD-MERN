@@ -1,1 +1,1 @@
-:Vinh, Nhu, Huy: Fullstack MERN Ecommerce Application
+:Vinh, Nhu, Huy: Fullstack MEVN Ecommerce Application
